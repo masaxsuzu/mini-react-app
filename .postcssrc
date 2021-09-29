@@ -1,0 +1,12 @@
+{
+    "modules": true,
+    "plugins": {
+        "postcss-modules": {
+            "generateScopedName": "[folder]__[local]___[hash:base64:6]",
+            "localIdentName": "[folder]__[local]___[hash:base64:6]"
+        },
+        "autoprefixer": {
+            "grid": true
+        }
+    }
+}
