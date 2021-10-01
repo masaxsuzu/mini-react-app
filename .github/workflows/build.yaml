@@ -1,0 +1,43 @@
+# GitHub Actions docs
+# https://help.github.com/en/articles/about-github-actions
+# https://help.github.com/en/articles/workflow-syntax-for-github-actions
+name: build
+
+on:
+  push:
+    branches:    
+      - main
+      - try-gha
+
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+
+    # Machine environment:
+    # https://help.github.com/en/articles/software-in-virtual-environments-for-github-actions#ubuntu-1804-lts
+    # We specify the Node.js version manually below, and use versioned Chrome from Puppeteer.
+    runs-on: ubuntu-20.04
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install Latest Stable Chrome
+      run: |
+        curl https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+        echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
+        sudo apt-get update
+        sudo apt install google-chrome-stable
+    - name: Use Node.js 14.16
+      uses: actions/setup-node@v1
+      with:
+        node-version: 14.16
+    - name: Install dependencies
+      run: yarn ci
+    - name: Lint
+      run: yarn lint
+    - name: Test
+      run: yarn test
+    - name: Deploy (Dry run)
+      run: yarn build:gh-pages
