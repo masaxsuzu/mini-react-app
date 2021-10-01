@@ -34,7 +34,7 @@ jobs:
       with:
         node-version: 14.16
     - name: Install dependencies
-      run: yarn ci
+      run: yarn --frozen-lockfile
     - name: Lint
       run: yarn lint
     - name: Test
