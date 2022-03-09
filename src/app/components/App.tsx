@@ -7,9 +7,6 @@ const ROUTER_BASENAME =
     ? "/"
     : "/mini-react-app";
 
-console.log(`process.env.NODE_ENV=${process.env.NODE_ENV}`);
-console.log(`ROUTER_BASENAME=${ROUTER_BASENAME}`);
-
 export const App = () => {
   return (
     <BrowserRouter basename={ROUTER_BASENAME}>
