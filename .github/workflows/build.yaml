@@ -41,3 +41,8 @@ jobs:
       run: yarn test
     - name: Deploy (Dry run)
       run: yarn build:gh-pages
+    - name: App Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./dist
